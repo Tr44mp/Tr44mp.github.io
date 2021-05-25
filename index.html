@@ -29,12 +29,12 @@
 			let sensor = new RelativeOrientationSensor({frequency:20})
 			sensor.addEventListener('reading', e => {
 				var lim = sensor.quaternion[0]*sensor.quaternion[1] + sensor.quaternion[2]*sensor.quaternion[3]
-				if (lim > 0.499) {
+				if (false/*lim > 0.499*/) {
 					tx = 2 * Math.atan2(sensor.quaternion[0],sensor.quaternion[3])
 					ty = Math.PI/2
 					tz = 0
 				}
-				else if (lim < -0.499) {
+				else if (false/*lim < -0.499*/) {
 					tx = -2 * Math.atan2(sensor.quaternion[0],sensor.quaternion[3])
 					ty = - Math.PI/2
 					tz = 0
