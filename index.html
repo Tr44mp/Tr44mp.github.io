@@ -10,6 +10,9 @@
 		<button id="zero">zero</button>
 		<script type="module">
 		import * as THREE from 'https://cdn.skypack.dev/three@0.128.0'
+		window.addEventListener('deviceorientation', function(event) {
+			document.body.innerHTML = (event.alpha + ' : ' + event.beta + ' : ' + event.gamma)
+		})
 		var euler = new THREE.Euler()
 		var token = '0e1aea9e-9fc1-4af8-b0e0-25494cdef436'
 		var session = '81b71f39-61fe-4699-80f8-25043cb02b40'
