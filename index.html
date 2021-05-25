@@ -42,7 +42,7 @@
 				req.onload = function () {
 					console.log(this.responseText)
 				}
-				req.send('command=execute as @e[tag=.'+document.getElementById('name').value+',type=armor_stand] run data merge entity @s {Pose:{Head:['+z*-1+'f,'+x*-1+'f,'+y*-1+'f]}}')
+				req.send('command=execute as @e[tag=.'+document.getElementById('name').value+',type=armor_stand] run data merge entity @s {Pose:{Head:['+y*-1+'f,'+x*-1+'f,'+z*-1+'f]}}')
 			})
 			sensor.start()
 		}
