@@ -21,7 +21,7 @@
 		var time = Date.now()
 		var avg = 0
 		var c = 1
-		if ('Gyroscope' in window) {
+		if ('RelativeOrientationSensor' in window) {
 			let sensor = new RelativeOrientationSensor({frequency:20})
 			sensor.addEventListener('reading', e => {
 				euler = euler.setFromQuaternion(new THREE.Quaternion().fromArray(sensor.quaternion), 'XYZ')
