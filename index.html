@@ -1,56 +1,56 @@
 <html>
 	<head></head>
 	<body>gaming
-	<div id='change'></div>
-	<div id='rotation'></div>
-	<div id='gaming'></div>
-	<input type='text' id='name' value='Tr4mp'>
-	<button id="zero">zero</button>
-    <script type="module">
-	import * as THREE from 'https://cdn.skypack.dev/three@0.128.0'
-	var euler = new THREE.Euler()
-	var token = '0e1aea9e-9fc1-4af8-b0e0-25494cdef436'
-	var session = '81b71f39-61fe-4699-80f8-25043cb02b40'
-	var bx = 0
-	var by = 0
-	var bz = 0
-	var x = 0
-	var y = 0
-	var z = 0
-	var time = Date.now()
-	var avg = 0
-	var c = 1
-    if ('Gyroscope' in window) {
-		let sensor = new RelativeOrientationSensor({frequency:20})
-		sensor.addEventListener('reading', e => {
-			euler = euler.setFromQuaternion(new THREE.Quaternion().fromArray(sensor.quaternion), 'XYZ')
-			document.getElementById('change').innerHTML = 'x: ' + Math.floor(euler.x*(180/Math.PI)) + ' y: ' + Math.floor(euler.y*(180/Math.PI)) + ' z: ' + Math.floor(euler.z*(180/Math.PI))
-			x=((euler.x-bx)*(180/Math.PI))%360
-			y=((euler.y-by)*(180/Math.PI))%360
-			z=((euler.z-bz)*(180/Math.PI))%360
-			document.getElementById('rotation').innerHTML = 'x: ' + Math.floor(x) + ' y: ' + Math.floor(y) + ' z: ' + Math.floor(z)
-			avg = (avg + (Date.now()-time))
-			document.getElementById('gaming').innerHTML = "avg time: " + Math.floor(avg/c) + "ms c:" + c
-			c++
-			time = Date.now()
-			var req = new XMLHttpRequest()
-			req.open('POST', 'https://api.minehut.com/server/5ee263fd26d15f00510e1f1e/send_command', true)
-			req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
-			req.setRequestHeader('authorization', token)
-			req.setRequestHeader('x-session-id', session)
-			req.onload = function () {
-				console.log(this.responseText)
-			}
-			req.send('command=execute as @e[tag=.'+document.getElementById('name').value+',type=armor_stand,limit=1,sort=nearest] run data merge entity @s {Pose:{Head:['+x*-1+'f,'+z*-1+'f,'+y*-1+'f]}}')
+		<div id='change'></div>
+		<div id='rotation'></div>
+		<div id='gaming'></div>
+		<input type='text' id='name' value='Tr4mp'>
+		<button id="zero">zero</button>
+		<script type="module">
+		import * as THREE from 'https://cdn.skypack.dev/three@0.128.0'
+		var euler = new THREE.Euler()
+		var token = '0e1aea9e-9fc1-4af8-b0e0-25494cdef436'
+		var session = '81b71f39-61fe-4699-80f8-25043cb02b40'
+		var bx = 0
+		var by = 0
+		var bz = 0
+		var x = 0
+		var y = 0
+		var z = 0
+		var time = Date.now()
+		var avg = 0
+		var c = 1
+		if ('Gyroscope' in window) {
+			let sensor = new RelativeOrientationSensor({frequency:20})
+			sensor.addEventListener('reading', e => {
+				euler = euler.setFromQuaternion(new THREE.Quaternion().fromArray(sensor.quaternion), 'XYZ')
+				document.getElementById('change').innerHTML = 'x: ' + Math.floor(euler.x*(180/Math.PI)) + ' y: ' + Math.floor(euler.y*(180/Math.PI)) + ' z: ' + Math.floor(euler.z*(180/Math.PI))
+				x=((euler.x-bx)*(180/Math.PI))%360
+				y=((euler.y-by)*(180/Math.PI))%360
+				z=((euler.z-bz)*(180/Math.PI))%360
+				document.getElementById('rotation').innerHTML = 'x: ' + Math.floor(x) + ' y: ' + Math.floor(y) + ' z: ' + Math.floor(z)
+				avg = (avg + (Date.now()-time))
+				document.getElementById('gaming').innerHTML = "avg time: " + Math.floor(avg/c) + "ms c:" + c
+				c++
+				time = Date.now()
+				var req = new XMLHttpRequest()
+				req.open('POST', 'https://api.minehut.com/server/5ee263fd26d15f00510e1f1e/send_command', true)
+				req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+				req.setRequestHeader('authorization', token)
+				req.setRequestHeader('x-session-id', session)
+				req.onload = function () {
+					console.log(this.responseText)
+				}
+				req.send('command=execute as @e[tag=.'+document.getElementById('name').value+',type=armor_stand,limit=1,sort=nearest] run data merge entity @s {Pose:{Head:['+x*-1+'f,'+z*-1+'f,'+y*-1+'f]}}')
+			})
+			sensor.start()
+		}
+		var zero = document.getElementById("zero")
+		zero.addEventListener("click", function() {
+			bx=euler.x
+			by=euler.y
+			bz=euler.z
 		})
-		sensor.start()
-    }
-	var zero = document.getElementById("zero")
-	zero.addEventListener("click", function() {
-		bx=euler.x
-		by=euler.y
-		bz=euler.z
-	})
-    </script>
+		</script>
 	</body>
 </html>
