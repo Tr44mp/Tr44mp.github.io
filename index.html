@@ -42,9 +42,9 @@
 				}
 				euler = euler.setFromQuaternion(new THREE.Quaternion().fromArray(sensor.quaternion), 'XYZ')
 				document.getElementById('change').innerHTML = 'x: ' + Math.floor(x*(180/Math.PI)) + ' y: ' + Math.floor(y*(180/Math.PI)) + ' z: ' + Math.floor(z*(180/Math.PI))
-				x=((euler.x-bx)*(180/Math.PI))%360
-				y=((euler.y-by)*(180/Math.PI))%360
-				z=((euler.z-bz)*(180/Math.PI))%360
+				x=((x-bx)*(180/Math.PI))%360
+				y=((y-by)*(180/Math.PI))%360
+				z=((z-bz)*(180/Math.PI))%360
 				document.getElementById('rotation').innerHTML = 'x: ' + Math.floor(x) + ' y: ' + Math.floor(y) + ' z: ' + Math.floor(z)
 				avg = (avg + (Date.now()-time))
 				document.getElementById('gaming').innerHTML = "avg time: " + Math.floor(avg/c) + "ms c:" + c
