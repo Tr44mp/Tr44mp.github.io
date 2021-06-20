@@ -69,6 +69,7 @@
 					console.log(this.responseText)
 				}
 				req.send('command=execute as @e[tag=.'+document.getElementById('name').value+',type=armor_stand] run data merge entity @s {Pose:{Head:['+x*-1+'f,'+y*-1+'f,'+z*-1+'f]}}')
+				req.send('command=execute as '+document.getElementByID('name').vaule+' at @s run tp @s ~ ~ ~ '+x+' '+y)
 			})
 			sensor.start()
 		}
