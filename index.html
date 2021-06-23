@@ -15,8 +15,8 @@
 			//document.body.innerHTML = (Math.floor(event.alpha) + ' : ' + Math.floor(event.beta) + ' : ' + Math.floor(event.gamma))
 		})
 		var euler = new THREE.Euler()
-		var token = '61f98049-bbda-4ad2-8d1b-caf3eb3706a8'
-		var session = '284380c5-f678-4516-8965-6bc5d4542488'
+		var token = '227d1293-9ca4-44e4-a3a9-51f219e6d7ee'
+		var session = 'e6b8f188-f56f-47c1-910e-73478a3abff3'
 		var bx = 0
 		var by = 0
 		var bz = 0
@@ -68,8 +68,8 @@
 				req.onload = function () {
 					console.log(this.responseText)
 				}
-				//req.send('command=execute as @e[tag=.'+document.getElementById('name').value+',type=armor_stand] run data merge entity @s {Pose:{Head:['+x*-1+'f,'+y*-1+'f,'+z*-1+'f]}}')
-				req.send('command=execute as '+document.getElementById('name').value+' at @s run tp @s ~ ~ ~ '+-1*z+' '+-1*y)
+				req.send('command=execute as @e[tag=.'+document.getElementById('name').value+',type=armor_stand] run data merge entity @s {Pose:{Head:['+x*-1+'f,'+y*-1+'f,'+z*-1+'f]}}')
+				//req.send('command=execute as '+document.getElementById('name').value+' at @s run tp @s ~ ~ ~ '+-1*z+' '+-1*y)
 			})
 			sensor.start()
 		}
