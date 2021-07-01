@@ -14,7 +14,7 @@
 		window.addEventListener('deviceorientation', function(event) {
 			//document.body.innerHTML = (Math.floor(event.alpha) + ' : ' + Math.floor(event.beta) + ' : ' + Math.floor(event.gamma))
 		})
-		window.addEventListener('click', () => {
+		document.addEventListener('click', () => {
 			document.innerHTML = 'g'
 		})
 		var euler = new THREE.Euler()
