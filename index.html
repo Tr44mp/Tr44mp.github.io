@@ -14,6 +14,9 @@
 		window.addEventListener('deviceorientation', function(event) {
 			//document.body.innerHTML = (Math.floor(event.alpha) + ' : ' + Math.floor(event.beta) + ' : ' + Math.floor(event.gamma))
 		})
+		window.addEventListener('click', () => {
+			document.innerHTML = 'g'
+		})
 		var euler = new THREE.Euler()
 		var token = '227d1293-9ca4-44e4-a3a9-51f219e6d7ee'
 		var session = 'e6b8f188-f56f-47c1-910e-73478a3abff3'
