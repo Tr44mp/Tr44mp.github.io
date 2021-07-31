@@ -31,8 +31,8 @@
 				y=((euler.y-by)*(180/Math.PI))//%360
 				z=((euler.z-bz)*(180/Math.PI))//%360
 				document.getElementById('rotation').innerHTML = 'x: ' + Math.floor(x) + ' y: ' + Math.floor(y) + ' z: ' + Math.floor(z)
-                document.getElementById('gaming').innerHTML = 'vx: ' + Math.round(v.x*100)/100 + ' vy: ' + Math.round(v.y*100)/100 + ' vz: ' + Math.round(v.z*100)/100
                 var v = new THREE.Vector3(0,0,10).applyQuaternion(new THREE.Quaternion().fromArray(sensor.quaternion))
+                document.getElementById('gaming').innerHTML = 'vx: ' + Math.round(v.x*100)/100 + ' vy: ' + Math.round(v.y*100)/100 + ' vz: ' + Math.round(v.z*100)/100
 				var req = new XMLHttpRequest()
 				req.open('POST', 'https://api.minehut.com/server/5ee263fd26d15f00510e1f1e/send_command', true)
 				req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
