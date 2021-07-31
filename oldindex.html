@@ -11,18 +11,46 @@
 		<button id="zero">zero</button>
 		<script type="module">
 		import * as THREE from 'https://cdn.skypack.dev/three@0.128.0'
+		window.addEventListener('deviceorientation', function(event) {
+			//document.body.innerHTML = (Math.floor(event.alpha) + ' : ' + Math.floor(event.beta) + ' : ' + Math.floor(event.gamma))
+		})
+		document.addEventListener('click', () => {
+			document.innerHTML = 'g'
+		})
 		var euler = new THREE.Euler()
-		var token = '124950f4-917f-41cf-ba8e-319289f55b64'
-		var session = '4199438b-efe4-426e-9a8b-c58515aa9124'
+		var token = '227d1293-9ca4-44e4-a3a9-51f219e6d7ee'
+		var session = 'e6b8f188-f56f-47c1-910e-73478a3abff3'
 		var bx = 0
 		var by = 0
 		var bz = 0
+		var tx = 0
+		var ty = 0
+		var tz = 0
 		var x = 0
 		var y = 0
 		var z = 0
+		var time = Date.now()
+		var avg = 0
+		var c = 1
 		if ('RelativeOrientationSensor' in window) {
 			let sensor = new RelativeOrientationSensor({frequency:20})
 			sensor.addEventListener('reading', e => {
+				/*var lim = sensor.quaternion[0]*sensor.quaternion[1] + sensor.quaternion[2]*sensor.quaternion[3]
+				if (falselim > 0.499) {
+					tx = 2 * Math.atan2(sensor.quaternion[0],sensor.quaternion[3])
+					ty = Math.PI/2
+					tz = 0
+				}
+				else if (falselim < -0.499) {
+					tx = -2 * Math.atan2(sensor.quaternion[0],sensor.quaternion[3])
+					ty = - Math.PI/2
+					tz = 0
+				}
+				else {
+					tx = Math.atan2(2*sensor.quaternion[1]*sensor.quaternion[3]-2*sensor.quaternion[0]*sensor.quaternion[2] , 1 - 2*(sensor.quaternion[1]*sensor.quaternion[1]) - 2*(sensor.quaternion[2]*sensor.quaternion[2]))
+					ty = Math.asin(2*lim)
+					tz = Math.atan2(2*sensor.quaternion[0]*sensor.quaternion[3]-2*sensor.quaternion[1]*sensor.quaternion[2] , 1 - 2*(sensor.quaternion[0]*sensor.quaternion[0]) - 2*(sensor.quaternion[2]*sensor.quaternion[2]))
+				}*/
 				euler = euler.setFromQuaternion(new THREE.Quaternion().fromArray(sensor.quaternion), 'XYZ')
 				document.getElementById('ungaming').innerHTML = Math.round(sensor.quaternion[0]*100)/100+' '+Math.round(sensor.quaternion[1]*100)/100+' '+Math.round(sensor.quaternion[2]*100)/100+' '+Math.round(sensor.quaternion[3]*100)/100
 				document.getElementById('change').innerHTML = 'x: ' + Math.floor(euler.x*(180/Math.PI)) + ' y: ' + Math.floor(euler.y*(180/Math.PI)) + ' z: ' + Math.floor(euler.z*(180/Math.PI))
@@ -31,8 +59,10 @@
 				y=((euler.y-by)*(180/Math.PI))//%360
 				z=((euler.z-bz)*(180/Math.PI))//%360
 				document.getElementById('rotation').innerHTML = 'x: ' + Math.floor(x) + ' y: ' + Math.floor(y) + ' z: ' + Math.floor(z)
-                document.getElementById('gaming').innerHTML = 'vx: ' + Math.round(v.x*100)/100 + ' vy: ' + Math.round(v.y*100)/100 + ' vz: ' + Math.round(v.z*100)/100
-                var v = new THREE.Vector3(0,0,10).applyQuaternion(new THREE.Quaternion().fromArray(sensor.quaternion))
+				avg = (avg + (Date.now()-time))
+				document.getElementById('gaming').innerHTML = "avg time: " + Math.floor(avg/c) + "ms c:" + c
+				c++
+				time = Date.now()
 				var req = new XMLHttpRequest()
 				req.open('POST', 'https://api.minehut.com/server/5ee263fd26d15f00510e1f1e/send_command', true)
 				req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
@@ -41,7 +71,8 @@
 				req.onload = function () {
 					console.log(this.responseText)
 				}
-				req.send('command=execute at '+document.getElementById('name').value+' run setblock ~'+v.x+' ~'+v.y+' ~'+v.z+' stone')
+				req.send('command=execute as @e[tag=.'+document.getElementById('name').value+',type=armor_stand] run data merge entity @s {Pose:{Head:['+x*-1+'f,'+y*-1+'f,'+z*-1+'f]}}')
+				//req.send('command=execute as '+document.getElementById('name').value+' at @s run tp @s ~ ~ ~ '+-1*z+' '+-1*y)
 			})
 			sensor.start()
 		}
